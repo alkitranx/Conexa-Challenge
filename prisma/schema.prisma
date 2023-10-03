@@ -11,214 +11,223 @@ datasource db {
 }
 
 model Role {
-    id                  Int      @id @default(autoincrement())
-    description         String      @db.VarChar(50)
-    sys_creation_date   DateTime  @default(now()) @db.Timestamp(6)
-    sys_update_date     DateTime? @db.Timestamp(6)
+  id                Int       @id @default(autoincrement())
+  description       String    @db.VarChar(50)
+  sys_creation_date DateTime  @default(now()) @db.Timestamp(6)
+  sys_update_date   DateTime? @db.Timestamp(6)
+  User              User[]
 }
 
 model User {
-      id                Int         @id @default(autoincrement())
-      email             String      @unique
-      name              String      @db.VarChar(50)
-      last_name         String      @db.VarChar(50)
-      password          String      @db.VarChar(100)
-      id_role           Int         @id
-      sys_creation_date DateTime    @default(now()) @db.Timestamp(6)
-      sys_update_date   DateTime?   @db.Timestamp(6)
-      Role             Role         @relation(fields:[id_role], references:[id], onDelete: Cascade)
+  id                Int       @id @default(autoincrement())
+  email             String    @unique
+  name              String    @db.VarChar(50)
+  last_name         String    @db.VarChar(50)
+  password          String    @db.VarChar(100)
+  id_role           Int
+  sys_creation_date DateTime  @default(now()) @db.Timestamp(6)
+  sys_update_date   DateTime? @db.Timestamp(6)
+  Role              Role      @relation(fields: [id_role], references: [id], onDelete: Cascade)
 }
-
 
 //@TODO poner las relaciones con planetas - peliculas - especies y revisar si hay otros
 model Specie {
-    id                  Int      @id @default(autoincrement())
-    name                String      @db.VarChar(50)
-    classification      String      @db.VarChar(50)
-    desgination         String      @db.VarChar(50)
-    average_height      String      @db.VarChar(50)
-    skin_colors         String      @db.VarChar(50)
-    hair_colors         String      @db.VarChar(50)
-    eye_colors          String      @db.VarChar(50)
-    average_lifespan    String      @db.VarChar(50)
-    homeworld           String      @db.VarChar(50)
-    language            String      @db.VarChar(50)
-    sys_creation_date   DateTime  @default(now()) @db.Timestamp(6)
-    sys_update_date     DateTime? @db.Timestamp(6)
+  id                Int                @id @default(autoincrement())
+  name              String             @db.VarChar(50)
+  classification    String             @db.VarChar(50)
+  desgination       String             @db.VarChar(50)
+  average_height    String             @db.VarChar(50)
+  skin_colors       String             @db.VarChar(50)
+  hair_colors       String             @db.VarChar(50)
+  eye_colors        String             @db.VarChar(50)
+  average_lifespan  String             @db.VarChar(50)
+  homeworld         String             @db.VarChar(50)
+  language          String             @db.VarChar(50)
+  sys_creation_date DateTime           @default(now()) @db.Timestamp(6)
+  sys_update_date   DateTime?          @db.Timestamp(6)
+  Film_specie       Film_specie[]
+  Character_specie  Character_specie[]
 }
 
 model Character {
-    id                  Int      @id @default(autoincrement())
-    name                String      @db.VarChar(50)
-    height              String      @db.VarChar(50)
-    mass                String      @db.VarChar(50)
-    hair_color          String      @db.VarChar(50)
-    skin_color          String      @db.VarChar(50)
-    eye_color           String      @db.VarChar(50)
-    birth_year          String      @db.VarChar(50)
-    gender              String      @db.VarChar(50)
-    sys_creation_date   DateTime  @default(now()) @db.Timestamp(6)
-    sys_update_date     DateTime? @db.Timestamp(6)
+  id                 Int                  @id @default(autoincrement())
+  name               String               @db.VarChar(50)
+  height             String               @db.VarChar(50)
+  mass               String               @db.VarChar(50)
+  hair_color         String               @db.VarChar(50)
+  skin_color         String               @db.VarChar(50)
+  eye_color          String               @db.VarChar(50)
+  birth_year         String               @db.VarChar(50)
+  gender             String               @db.VarChar(50)
+  sys_creation_date  DateTime             @default(now()) @db.Timestamp(6)
+  sys_update_date    DateTime?            @db.Timestamp(6)
+  Vehicle_character  Vehicle_character[]
+  Film_character     Film_character[]
+  Character_specie   Character_specie[]
+  Starship_character Starship_character[]
+  Planet_character   Planet_character[]
 }
 
 model Film {
-    id                  Int         @id @default(autoincrement())
-    title               String      @db.VarChar(50)
-    episode_id          String      @db.VarChar(50)
-    opening_crawl       String      @db.VarChar(1000)
-    director            String      @db.VarChar(50)
-    producer            String      @db.VarChar(50)
-    release_date        DateTime    @db.Date
-    sys_creation_date   DateTime      @default(now()) @db.Timestamp(6)
-    sys_update_date     DateTime?     @db.Timestamp(6)
+  id                Int              @id @default(autoincrement())
+  title             String           @db.VarChar(50)
+  episode_id        String           @db.VarChar(50)
+  opening_crawl     String           @db.VarChar(1000)
+  director          String           @db.VarChar(50)
+  producer          String           @db.VarChar(50)
+  release_date      DateTime         @db.Date
+  sys_creation_date DateTime         @default(now()) @db.Timestamp(6)
+  sys_update_date   DateTime?        @db.Timestamp(6)
+  Film_Vehicles     Film_Vehicles[]
+  Film_character    Film_character[]
+  Film_planet       Film_planet[]
+  Film_starship     Film_starship[]
+  Film_specie       Film_specie[]
 }
 
 model Planet {
-    id                  Int         @id @default(autoincrement())
-    name                String      @db.VarChar(50)
-    rotation_period     String      @db.VarChar(50)
-    orbital_period      String      @db.VarChar(50)
-    diameter            String      @db.VarChar(50)
-    climate             String      @db.VarChar(50)
-    gravity             String      @db.VarChar(50)
-    terrain             String      @db.VarChar(50)
-    surface_water       String      @db.VarChar(50)
-    population          String      @db.VarChar(50)
-    sys_creation_date   DateTime    @default(now()) @db.Timestamp(6)
-    sys_update_date     DateTime?   @db.Timestamp(6)
+  id                Int                @id @default(autoincrement())
+  name              String             @db.VarChar(50)
+  rotation_period   String             @db.VarChar(50)
+  orbital_period    String             @db.VarChar(50)
+  diameter          String             @db.VarChar(50)
+  climate           String             @db.VarChar(50)
+  gravity           String             @db.VarChar(50)
+  terrain           String             @db.VarChar(50)
+  surface_water     String             @db.VarChar(50)
+  population        String             @db.VarChar(50)
+  sys_creation_date DateTime           @default(now()) @db.Timestamp(6)
+  sys_update_date   DateTime?          @db.Timestamp(6)
+  Film_planet       Film_planet[]
+  Planet_character  Planet_character[]
 }
 
 model Starship {
-    id                      Int         @id @default(autoincrement())
-    name                    String      @db.VarChar(50)
-    model                   String      @db.VarChar(50)
-    manufacturer            String      @db.VarChar(50)
-    cost_in_credits         String      @db.VarChar(50)
-    length                  String      @db.VarChar(50)
-    max_atmosphering_speed  String      @db.VarChar(50)
-    crew                    String      @db.VarChar(50)
-    passengers              String      @db.VarChar(50)
-    cargo_capacity          String      @db.VarChar(50)
-    consumables             String      @db.VarChar(50)
-    hyperdrive_rating       String      @db.VarChar(50)
-    MGLT                    String      @db.VarChar(50)
-    starship_class          String      @db.VarChar(50)
-    sys_creation_date       DateTime    @default(now()) @db.Timestamp(6)
-    sys_update_date         DateTime?   @db.Timestamp(6)
+  id                     Int                  @id @default(autoincrement())
+  name                   String               @db.VarChar(50)
+  model                  String               @db.VarChar(50)
+  manufacturer           String               @db.VarChar(50)
+  cost_in_credits        String               @db.VarChar(50)
+  length                 String               @db.VarChar(50)
+  max_atmosphering_speed String               @db.VarChar(50)
+  crew                   String               @db.VarChar(50)
+  passengers             String               @db.VarChar(50)
+  cargo_capacity         String               @db.VarChar(50)
+  consumables            String               @db.VarChar(50)
+  hyperdrive_rating      String               @db.VarChar(50)
+  MGLT                   String               @db.VarChar(50)
+  starship_class         String               @db.VarChar(50)
+  sys_creation_date      DateTime             @default(now()) @db.Timestamp(6)
+  sys_update_date        DateTime?            @db.Timestamp(6)
+  Film_starship          Film_starship[]
+  Starship_character     Starship_character[]
 }
 
 model Vehicle {
-    id                      Int         @id @default(autoincrement())
-    name                    String      @db.VarChar(50)
-    model                   String      @db.VarChar(50)
-    manufacturer            String      @db.VarChar(50)
-    cost_in_credits         String      @db.VarChar(50)
-    length                  String      @db.VarChar(50)
-    max_atmosphering_speed  String      @db.VarChar(50)
-    crew                    String      @db.VarChar(50)
-    passengers              String      @db.VarChar(50)
-    cargo_capacity          String      @db.VarChar(50)
-    consumables             String      @db.VarChar(50)
-    vehicle_class           String      @db.VarChar(50)
-    sys_creation_date       DateTime    @default(now()) @db.Timestamp(6)
-    sys_update_date         DateTime?   @db.Timestamp(6)
+  id                     Int                 @id @default(autoincrement())
+  name                   String              @db.VarChar(50)
+  model                  String              @db.VarChar(50)
+  manufacturer           String              @db.VarChar(50)
+  cost_in_credits        String              @db.VarChar(50)
+  length                 String              @db.VarChar(50)
+  max_atmosphering_speed String              @db.VarChar(50)
+  crew                   String              @db.VarChar(50)
+  passengers             String              @db.VarChar(50)
+  cargo_capacity         String              @db.VarChar(50)
+  consumables            String              @db.VarChar(50)
+  vehicle_class          String              @db.VarChar(50)
+  sys_creation_date      DateTime            @default(now()) @db.Timestamp(6)
+  sys_update_date        DateTime?           @db.Timestamp(6)
+  Film_Vehicles          Film_Vehicles[]
+  Vehicle_character      Vehicle_character[]
 }
 
 model Film_Vehicles {
-    id                      Int         @id @default(autoincrement())
-    id_vehicle              Int
-    id_film                 Int
-    sys_creation_date       DateTime    @default(now()) @db.Timestamp(6)
-    sys_update_date         DateTime?   @db.Timestamp(6)
-    Vehicle                 Vehicle     @relation(fields:[id_vehicle], references: [id], onDelete: NoAction, onUpdate: NoAction)
-    Film                    Film        @relation(fields:[id_film], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  id                Int       @id @default(autoincrement())
+  id_vehicle        Int
+  id_film           Int
+  sys_creation_date DateTime  @default(now()) @db.Timestamp(6)
+  sys_update_date   DateTime? @db.Timestamp(6)
+  Vehicle           Vehicle   @relation(fields: [id_vehicle], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  Film              Film      @relation(fields: [id_film], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 model Vehicle_character {
-    id                      Int         @id @default(autoincrement())
-    id_vehicle              Int
-    id_character            Int
-    sys_creation_date       DateTime    @default(now()) @db.Timestamp(6)
-    sys_update_date         DateTime?   @db.Timestamp(6)
-    Vehicle                 Vehicle     @relation(fields:[id_vehicle], references: [id], onDelete: NoAction, onUpdate: NoAction)
-    Character               Character   @relation(fields:[id_character], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  id                Int       @id @default(autoincrement())
+  id_vehicle        Int
+  id_character      Int
+  sys_creation_date DateTime  @default(now()) @db.Timestamp(6)
+  sys_update_date   DateTime? @db.Timestamp(6)
+  Vehicle           Vehicle   @relation(fields: [id_vehicle], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  Character         Character @relation(fields: [id_character], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 model Film_character {
-    id                      Int         @id @default(autoincrement())
-    id_film                 Int
-    id_character            Int
-    sys_creation_date       DateTime    @default(now()) @db.Timestamp(6)
-    sys_update_date         DateTime?   @db.Timestamp(6)
-    Character               Character   @relation(fields:[id_character], references: [id], onDelete: NoAction, onUpdate: NoAction)
-    Film                    Film        @relation(fields:[id_film], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  id                Int       @id @default(autoincrement())
+  id_film           Int
+  id_character      Int
+  sys_creation_date DateTime  @default(now()) @db.Timestamp(6)
+  sys_update_date   DateTime? @db.Timestamp(6)
+  Character         Character @relation(fields: [id_character], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  Film              Film      @relation(fields: [id_film], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 model Film_planet {
-    id                      Int         @id @default(autoincrement())
-    id_film                 Int
-    id_planet               Int
-    sys_creation_date       DateTime    @default(now()) @db.Timestamp(6)
-    sys_update_date         DateTime?   @db.Timestamp(6)
-    Planet                  Planet      @relation(fields:[id_planet], references: [id], onDelete: NoAction, onUpdate: NoAction)
-    Film                    Film        @relation(fields:[id_film], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  id                Int       @id @default(autoincrement())
+  id_film           Int
+  id_planet         Int
+  sys_creation_date DateTime  @default(now()) @db.Timestamp(6)
+  sys_update_date   DateTime? @db.Timestamp(6)
+  Planet            Planet    @relation(fields: [id_planet], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  Film              Film      @relation(fields: [id_film], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 model Film_starship {
-    id                      Int         @id @default(autoincrement())
-    id_film                 Int
-    id_starship             Int
-    sys_creation_date       DateTime    @default(now()) @db.Timestamp(6)
-    sys_update_date         DateTime?   @db.Timestamp(6)
-    Starship                Starship    @relation(fields:[id_starship], references: [id], onDelete: NoAction, onUpdate: NoAction)
-    Film                    Film        @relation(fields:[id_film], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  id                Int       @id @default(autoincrement())
+  id_film           Int
+  id_starship       Int
+  sys_creation_date DateTime  @default(now()) @db.Timestamp(6)
+  sys_update_date   DateTime? @db.Timestamp(6)
+  Starship          Starship  @relation(fields: [id_starship], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  Film              Film      @relation(fields: [id_film], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 model Film_specie {
-    id                      Int         @id @default(autoincrement())
-    id_film                 Int
-    id_specie               Int
-    sys_creation_date       DateTime    @default(now()) @db.Timestamp(6)
-    sys_update_date         DateTime?   @db.Timestamp(6)
-    Specie                  Specie      @relation(fields:[id_specie], references: [id], onDelete: NoAction, onUpdate: NoAction)
-    Film                    Film        @relation(fields:[id_film], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  id                Int       @id @default(autoincrement())
+  id_film           Int
+  id_specie         Int
+  sys_creation_date DateTime  @default(now()) @db.Timestamp(6)
+  sys_update_date   DateTime? @db.Timestamp(6)
+  Specie            Specie    @relation(fields: [id_specie], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  Film              Film      @relation(fields: [id_film], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 model Character_specie {
-    id                      Int         @id @default(autoincrement())
-    id_character                 Int
-    id_specie               Int
-    sys_creation_date       DateTime    @default(now()) @db.Timestamp(6)
-    sys_update_date         DateTime?   @db.Timestamp(6)
-    Specie                  Specie      @relation(fields:[id_specie], references: [id], onDelete: NoAction, onUpdate: NoAction)
-    Character               Character   @relation(fields:[id_character], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  id                Int       @id @default(autoincrement())
+  id_character      Int
+  id_specie         Int
+  sys_creation_date DateTime  @default(now()) @db.Timestamp(6)
+  sys_update_date   DateTime? @db.Timestamp(6)
+  Specie            Specie    @relation(fields: [id_specie], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  Character         Character @relation(fields: [id_character], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 model Starship_character {
-    id                      Int         @id @default(autoincrement())
-    id_starship             Int
-    id_character            Int
-    sys_creation_date       DateTime    @default(now()) @db.Timestamp(6)
-    sys_update_date         DateTime?   @db.Timestamp(6)
-    Starship                Starship    @relation(fields:[id_starship], references: [id], onDelete: NoAction, onUpdate: NoAction)
-    Character               Character   @relation(fields:[id_character], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  id                Int       @id @default(autoincrement())
+  id_starship       Int
+  id_character      Int
+  sys_creation_date DateTime  @default(now()) @db.Timestamp(6)
+  sys_update_date   DateTime? @db.Timestamp(6)
+  Starship          Starship  @relation(fields: [id_starship], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  Character         Character @relation(fields: [id_character], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 model Planet_character {
-    id                      Int         @id @default(autoincrement())
-    id_planet               Int
-    id_character            Int
-    sys_creation_date       DateTime    @default(now()) @db.Timestamp(6)
-    sys_update_date         DateTime?   @db.Timestamp(6)
-    Planet                  Planet    @relation(fields:[id_planet], references: [id], onDelete: NoAction, onUpdate: NoAction)
-    Character               Character   @relation(fields:[id_character], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  id                Int       @id @default(autoincrement())
+  id_planet         Int
+  id_character      Int
+  sys_creation_date DateTime  @default(now()) @db.Timestamp(6)
+  sys_update_date   DateTime? @db.Timestamp(6)
+  Planet            Planet    @relation(fields: [id_planet], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  Character         Character @relation(fields: [id_character], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
-
-
-
-
-
-
-
-
-
