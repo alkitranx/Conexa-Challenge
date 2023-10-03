@@ -21,10 +21,7 @@ async function bootstrap() {
       'Microservicio encargado de la autenticación y de las credenciales.',
     )
     .setVersion(process.env.npm_package_version)
-    .addBearerAuth(undefined, 'Provider Token')
-    .addBearerAuth(undefined, 'Beneficiary Token')
-    .addBearerAuth(undefined, 'EmerUser Token')
-    .addBearerAuth(undefined, 'General Token')
+    .addBearerAuth(undefined, 'User Token')
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
