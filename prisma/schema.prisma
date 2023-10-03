@@ -24,7 +24,7 @@ model User {
   name              String    @db.VarChar(50)
   last_name         String    @db.VarChar(50)
   password          String    @db.VarChar(100)
-  id_role           Int
+  id_role           Int       @default(1)
   sys_creation_date DateTime  @default(now()) @db.Timestamp(6)
   sys_update_date   DateTime? @db.Timestamp(6)
   Role              Role      @relation(fields: [id_role], references: [id], onDelete: Cascade)
