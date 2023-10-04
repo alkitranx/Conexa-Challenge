@@ -10,7 +10,8 @@ export class CustomCheckPasswordFormat implements ValidatorConstraintInterface {
     /*Esta expresion regular evalua que este string contenga:
      * -Al menos una letra mayuscula y/o minuscula (podria contar con acentos(aeiou) e incluida la ñ)
      * -Al menos un numero*/
-    const regex = /^(?=.*\d)(?=.*[a-záéíóúüñ]).*[A-ZÁÉÍÓÚÜÑ]/;
+    //const regex = /^(?=.*\d)(?=.*[a-záéíóúüñ]).*[A-ZÁÉÍÓÚÜÑ]/;
+    const regex = /^(?=\S*\d)(?=\S*[a-záéíóúüñ])\S*[A-ZÁÉÍÓÚÜÑ]\S*$/;
     return regex.test(password);
   }
 

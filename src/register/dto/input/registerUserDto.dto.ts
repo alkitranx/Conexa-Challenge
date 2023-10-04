@@ -5,8 +5,8 @@ import {
   IsString, Length,
   Validate,
 } from 'class-validator';
-import { CheckDuplicatePassword } from '../custom-validation/checkDuplicatePassword';
-import { CustomCheckPasswordFormat } from '../custom-validation/checkPasswordFormat';
+import { CheckDuplicatePassword } from '../../custom-validation/checkDuplicatePassword';
+import { CustomCheckPasswordFormat } from '../../custom-validation/checkPasswordFormat';
 
 export class RegisterUserDto {
   @IsNotEmpty()
@@ -19,13 +19,13 @@ export class RegisterUserDto {
   @IsAlphanumeric()
   last_name: string;
   @IsNotEmpty()
-  @Length(7, 64)
+  @Length(8, 64)
   @IsString()
   @Validate(CustomCheckPasswordFormat)
   password: string;
   @IsNotEmpty()
   @IsString()
-  @Length(7, 64)
+  @Length(8, 64)
   @CheckDuplicatePassword('password', {
     message: 'Registered passwords do not match',
   })
