@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 
 import { BcryptService } from '../infrastructure/bcrypt/bcrypt.service';
 import { LoginRepository } from './login.repository';
