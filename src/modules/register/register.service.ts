@@ -1,7 +1,7 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { RegisterRepository } from './register.repository';
 import { RegisterUserDto } from './dto/input/registerUserDto.dto';
-import { BcryptService } from '../infrastructure/bcrypt/bcrypt.service';
+import { BcryptService } from '../../infrastructure/bcrypt/bcrypt.service';
 
 @Injectable()
 export class RegisterService {

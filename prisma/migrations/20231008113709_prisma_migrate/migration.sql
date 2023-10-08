@@ -15,7 +15,7 @@ CREATE TABLE "User" (
     "name" VARCHAR(50) NOT NULL,
     "last_name" VARCHAR(50) NOT NULL,
     "password" VARCHAR(100) NOT NULL,
-    "id_role" INTEGER NOT NULL,
+    "id_role" INTEGER NOT NULL DEFAULT 1,
     "sys_creation_date" TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "sys_update_date" TIMESTAMP(6),
 
@@ -27,16 +27,16 @@ CREATE TABLE "Specie" (
     "id" SERIAL NOT NULL,
     "name" VARCHAR(50) NOT NULL,
     "classification" VARCHAR(50) NOT NULL,
-    "desgination" VARCHAR(50) NOT NULL,
     "average_height" VARCHAR(50) NOT NULL,
     "skin_colors" VARCHAR(50) NOT NULL,
     "hair_colors" VARCHAR(50) NOT NULL,
     "eye_colors" VARCHAR(50) NOT NULL,
     "average_lifespan" VARCHAR(50) NOT NULL,
-    "homeworld" VARCHAR(50) NOT NULL,
+    "homeworld" VARCHAR(50),
     "language" VARCHAR(50) NOT NULL,
     "sys_creation_date" TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "sys_update_date" TIMESTAMP(6),
+    "designation" VARCHAR(50) NOT NULL,
 
     CONSTRAINT "Specie_pkey" PRIMARY KEY ("id")
 );
@@ -62,13 +62,13 @@ CREATE TABLE "Character" (
 CREATE TABLE "Film" (
     "id" SERIAL NOT NULL,
     "title" VARCHAR(50) NOT NULL,
-    "episode_id" VARCHAR(50) NOT NULL,
     "opening_crawl" VARCHAR(1000) NOT NULL,
     "director" VARCHAR(50) NOT NULL,
     "producer" VARCHAR(50) NOT NULL,
     "release_date" DATE NOT NULL,
     "sys_creation_date" TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "sys_update_date" TIMESTAMP(6),
+    "episode_id" INTEGER NOT NULL,
 
     CONSTRAINT "Film_pkey" PRIMARY KEY ("id")
 );
@@ -99,7 +99,7 @@ CREATE TABLE "Starship" (
     "manufacturer" VARCHAR(50) NOT NULL,
     "cost_in_credits" VARCHAR(50) NOT NULL,
     "length" VARCHAR(50) NOT NULL,
-    "max_atmosphering_speed" VARCHAR(50) NOT NULL,
+    "max_atmosphering_speed" VARCHAR(200) NOT NULL,
     "crew" VARCHAR(50) NOT NULL,
     "passengers" VARCHAR(50) NOT NULL,
     "cargo_capacity" VARCHAR(50) NOT NULL,
@@ -239,16 +239,16 @@ CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 ALTER TABLE "User" ADD CONSTRAINT "User_id_role_fkey" FOREIGN KEY ("id_role") REFERENCES "Role"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Film_Vehicles" ADD CONSTRAINT "Film_Vehicles_id_vehicle_fkey" FOREIGN KEY ("id_vehicle") REFERENCES "Vehicle"("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
-
--- AddForeignKey
 ALTER TABLE "Film_Vehicles" ADD CONSTRAINT "Film_Vehicles_id_film_fkey" FOREIGN KEY ("id_film") REFERENCES "Film"("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- AddForeignKey
-ALTER TABLE "Vehicle_character" ADD CONSTRAINT "Vehicle_character_id_vehicle_fkey" FOREIGN KEY ("id_vehicle") REFERENCES "Vehicle"("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "Film_Vehicles" ADD CONSTRAINT "Film_Vehicles_id_vehicle_fkey" FOREIGN KEY ("id_vehicle") REFERENCES "Vehicle"("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- AddForeignKey
 ALTER TABLE "Vehicle_character" ADD CONSTRAINT "Vehicle_character_id_character_fkey" FOREIGN KEY ("id_character") REFERENCES "Character"("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- AddForeignKey
+ALTER TABLE "Vehicle_character" ADD CONSTRAINT "Vehicle_character_id_vehicle_fkey" FOREIGN KEY ("id_vehicle") REFERENCES "Vehicle"("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- AddForeignKey
 ALTER TABLE "Film_character" ADD CONSTRAINT "Film_character_id_character_fkey" FOREIGN KEY ("id_character") REFERENCES "Character"("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
@@ -257,37 +257,37 @@ ALTER TABLE "Film_character" ADD CONSTRAINT "Film_character_id_character_fkey" F
 ALTER TABLE "Film_character" ADD CONSTRAINT "Film_character_id_film_fkey" FOREIGN KEY ("id_film") REFERENCES "Film"("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- AddForeignKey
-ALTER TABLE "Film_planet" ADD CONSTRAINT "Film_planet_id_planet_fkey" FOREIGN KEY ("id_planet") REFERENCES "Planet"("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
-
--- AddForeignKey
 ALTER TABLE "Film_planet" ADD CONSTRAINT "Film_planet_id_film_fkey" FOREIGN KEY ("id_film") REFERENCES "Film"("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- AddForeignKey
-ALTER TABLE "Film_starship" ADD CONSTRAINT "Film_starship_id_starship_fkey" FOREIGN KEY ("id_starship") REFERENCES "Starship"("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "Film_planet" ADD CONSTRAINT "Film_planet_id_planet_fkey" FOREIGN KEY ("id_planet") REFERENCES "Planet"("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- AddForeignKey
 ALTER TABLE "Film_starship" ADD CONSTRAINT "Film_starship_id_film_fkey" FOREIGN KEY ("id_film") REFERENCES "Film"("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- AddForeignKey
-ALTER TABLE "Film_specie" ADD CONSTRAINT "Film_specie_id_specie_fkey" FOREIGN KEY ("id_specie") REFERENCES "Specie"("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "Film_starship" ADD CONSTRAINT "Film_starship_id_starship_fkey" FOREIGN KEY ("id_starship") REFERENCES "Starship"("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- AddForeignKey
 ALTER TABLE "Film_specie" ADD CONSTRAINT "Film_specie_id_film_fkey" FOREIGN KEY ("id_film") REFERENCES "Film"("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- AddForeignKey
-ALTER TABLE "Character_specie" ADD CONSTRAINT "Character_specie_id_specie_fkey" FOREIGN KEY ("id_specie") REFERENCES "Specie"("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "Film_specie" ADD CONSTRAINT "Film_specie_id_specie_fkey" FOREIGN KEY ("id_specie") REFERENCES "Specie"("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- AddForeignKey
 ALTER TABLE "Character_specie" ADD CONSTRAINT "Character_specie_id_character_fkey" FOREIGN KEY ("id_character") REFERENCES "Character"("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- AddForeignKey
-ALTER TABLE "Starship_character" ADD CONSTRAINT "Starship_character_id_starship_fkey" FOREIGN KEY ("id_starship") REFERENCES "Starship"("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "Character_specie" ADD CONSTRAINT "Character_specie_id_specie_fkey" FOREIGN KEY ("id_specie") REFERENCES "Specie"("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- AddForeignKey
 ALTER TABLE "Starship_character" ADD CONSTRAINT "Starship_character_id_character_fkey" FOREIGN KEY ("id_character") REFERENCES "Character"("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- AddForeignKey
-ALTER TABLE "Planet_character" ADD CONSTRAINT "Planet_character_id_planet_fkey" FOREIGN KEY ("id_planet") REFERENCES "Planet"("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "Starship_character" ADD CONSTRAINT "Starship_character_id_starship_fkey" FOREIGN KEY ("id_starship") REFERENCES "Starship"("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- AddForeignKey
 ALTER TABLE "Planet_character" ADD CONSTRAINT "Planet_character_id_character_fkey" FOREIGN KEY ("id_character") REFERENCES "Character"("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- AddForeignKey
+ALTER TABLE "Planet_character" ADD CONSTRAINT "Planet_character_id_planet_fkey" FOREIGN KEY ("id_planet") REFERENCES "Planet"("id") ON DELETE NO ACTION ON UPDATE NO ACTION;

@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 
-import { BcryptService } from '../infrastructure/bcrypt/bcrypt.service';
+import { BcryptService } from '../../infrastructure/bcrypt/bcrypt.service';
 import { LoginRepository } from './login.repository';
-import { BasicResponseTemplate } from '../libs/response-templates';
+import { BasicResponseTemplate } from '../../libs/response-templates';
 import { AccessTokenService } from '../jwt/access-token.service';
 
 @Injectable()
