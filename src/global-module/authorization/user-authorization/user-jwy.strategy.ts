@@ -4,7 +4,10 @@ import { Injectable } from '@nestjs/common';
 import { AuthorizationService } from '../authorization.service';
 
 @Injectable()
-export class UserJwtStrategy extends PassportStrategy(Strategy, 'user-jwt') {
+export class UserJwtStrategy extends PassportStrategy(
+  Strategy,
+  'user-authorization',
+) {
   constructor(private authorizationService: AuthorizationService) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
@@ -14,13 +17,7 @@ export class UserJwtStrategy extends PassportStrategy(Strategy, 'user-jwt') {
   }
 
   async validate(payload: any) {
-    console.log('payload',payload)
-    const roles = await this.authorizationService.getRoles(payload.email);
-    console.log('dddddd', roles)
-
-    return {
-      email: payload.email,
-      roles: roles,
-    };
+    const user = await this.authorizationService.findUser(payload.email);
+    return { id: user.id, email: user.email, id_role: user.id_role };
   }
 }

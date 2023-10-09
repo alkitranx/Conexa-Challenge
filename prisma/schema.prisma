@@ -26,4 +26,3 @@ model User {
   sys_update_date   DateTime? @db.Timestamp(6)
   Role              Role      @relation(fields: [id_role], references: [id], onDelete: Cascade)
 }
-

@@ -5,10 +5,11 @@ export class AccessTokenService {
   constructor(private accessToken: JwtService) {}
 
   generateToken(userData: any): string {
+    console.log('userdata', userData)
     const payload = {
-      sub: userData.id.toString(),
+      id: userData.id,
       email: userData.email,
-      role: userData.role,
+      id_role: userData.id_role,
     };
     return this.accessToken.sign(payload);
   }
