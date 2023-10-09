@@ -12,8 +12,6 @@ export class RoleGuard implements CanActivate {
       context.getHandler(),
       context.getClass(),
     ]);
-    // Obtengo los scopes permitidos que como parametros desde el decorador ScopeAuthorization
-    // Chequeamos que entre los scopes con permisos se encuentre el del usuario
     if (!requiredRoles) {
       return true;
     }

@@ -1,4 +1,4 @@
-import { Films, FilmsDocument } from '../../../schema/films.schema';
+import { Films, FilmsDocument } from '../../../../infrastructure/schema/films.schema';
 
 export class FindAllFilmsOutput extends Films {
 

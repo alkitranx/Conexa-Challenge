@@ -3,12 +3,27 @@ import { HttpModule } from '@nestjs/axios';
 import { ExternalApiService } from './external-api.service';
 import { ExternalApiController } from './external-api.controller';
 import { MongooseModule } from '@nestjs/mongoose';
-import { Films, FilmsSchema } from '../schema/films.schema';
-import { People, PeopleSchema } from '../schema/people.schema';
-import { Vehicles, VehiclesSchema } from '../schema/vehicles.schema';
-import { Starships, StarshipsSchema } from '../schema/starships.schema';
-import { Species, SpeciesSchema } from '../schema/species.schema';
-import { Planets, PlanetsSchema } from '../schema/planets.schema';
+import { Films, FilmsSchema } from '../../infrastructure/schema/films.schema';
+import {
+  People,
+  PeopleSchema,
+} from '../../infrastructure/schema/people.schema';
+import {
+  Vehicles,
+  VehiclesSchema,
+} from '../../infrastructure/schema/vehicles.schema';
+import {
+  Starships,
+  StarshipsSchema,
+} from '../../infrastructure/schema/starships.schema';
+import {
+  Species,
+  SpeciesSchema,
+} from '../../infrastructure/schema/species.schema';
+import {
+  Planets,
+  PlanetsSchema,
+} from '../../infrastructure/schema/planets.schema';
 
 @Module({
   imports: [

@@ -1,16 +1,32 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Films, FilmsDocument } from '../schema/films.schema';
+import { Films, FilmsDocument } from '../../infrastructure/schema/films.schema';
 import { Model } from 'mongoose';
-import { People, PeopleDocument } from '../schema/people.schema';
-import { Species, SpeciesDocument } from '../schema/species.schema';
-import { Planets, PlanetsDocument } from '../schema/planets.schema';
-import { Starships, StarshipsDocument } from '../schema/starships.schema';
-import { Vehicles, VehiclesDocument } from '../schema/vehicles.schema';
+import {
+  People,
+  PeopleDocument,
+} from '../../infrastructure/schema/people.schema';
+import {
+  Species,
+  SpeciesDocument,
+} from '../../infrastructure/schema/species.schema';
+import {
+  Planets,
+  PlanetsDocument,
+} from '../../infrastructure/schema/planets.schema';
+import {
+  Starships,
+  StarshipsDocument,
+} from '../../infrastructure/schema/starships.schema';
+import {
+  Vehicles,
+  VehiclesDocument,
+} from '../../infrastructure/schema/vehicles.schema';
 import { UpdateFilmDto } from './dtos/input/updateFilmDto';
 
 @Injectable()
 export class FilmsRepository {
+  static findAllFilms: () => Promise<FilmsDocument[]>;
   constructor(
     @InjectModel(Films.name) private FilmsModule: Model<FilmsDocument>,
     @InjectModel(People.name) private PeopleModule: Model<PeopleDocument>,

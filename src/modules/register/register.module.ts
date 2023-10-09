@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { RegisterController } from './register.controller';
 import { RegisterRepository } from './register.repository';
 import { RegisterService } from './register.service';
-import { BcryptModule } from '../../infrastructure/bcrypt/bcrypt.module';
+import { BcryptModule } from '../../libs/bcrypt/bcrypt.module';
 
 @Module({
   imports: [BcryptModule],
