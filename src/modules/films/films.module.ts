@@ -7,9 +7,9 @@ import { Vehicles, VehiclesSchema } from '../schema/vehicles.schema';
 import { Starships, StarshipsSchema } from '../schema/starships.schema';
 import { Species, SpeciesSchema } from '../schema/species.schema';
 import { Planets, PlanetsSchema } from '../schema/planets.schema';
-import { RegisterController } from '../external-api/external-api.controller';
-import { ExternalApiService } from '../external-api/external-api.service';
-import {FilmsService} from "./films.service";
+import { FilmsService } from './films.service';
+import { FilmsRepository } from './films.repository';
+import { FilmsController } from './films.controller';
 
 @Module({
   imports: [
@@ -41,8 +41,8 @@ import {FilmsService} from "./films.service";
       },
     ]),
   ],
-  controllers: [RegisterController],
-  providers: [FilmsService],
+  controllers: [FilmsController],
+  providers: [FilmsService, FilmsRepository],
   exports: [],
 })
 export class FilmsModule {}

@@ -5,6 +5,8 @@ export type PlanetsDocument = Planets & Document;
 
 @Schema()
 export class Planets {
+  @Prop({ unique: true, index: true })
+  idReference: number;
   @Prop()
   name: string;
   @Prop()

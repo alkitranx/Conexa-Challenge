@@ -5,6 +5,8 @@ export type FilmsDocument = Films & Document;
 
 @Schema()
 export class Films {
+  @Prop({ unique: true, index: true })
+  idReference: number;
   @Prop()
   title: string;
   @Prop({ unique: true })

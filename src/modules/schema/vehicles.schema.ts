@@ -5,6 +5,9 @@ export type VehiclesDocument = Vehicles & Document;
 
 @Schema()
 export class Vehicles {
+  @Prop({ unique: true, index: true })
+  idReference: number;
+  @Prop()
   name: string;
   @Prop()
   model: string;

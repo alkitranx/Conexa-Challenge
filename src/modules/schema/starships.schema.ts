@@ -5,6 +5,8 @@ export type StarshipsDocument = Starships & Document;
 
 @Schema()
 export class Starships {
+  @Prop({ unique: true, index: true })
+  idReference: number;
   @Prop()
   name: string;
   @Prop()

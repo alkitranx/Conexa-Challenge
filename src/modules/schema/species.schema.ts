@@ -5,6 +5,8 @@ export type SpeciesDocument = Species & Document;
 
 @Schema()
 export class Species {
+  @Prop({ unique: true, index: true })
+  idReference: number;
   @Prop()
   name: string;
   @Prop()

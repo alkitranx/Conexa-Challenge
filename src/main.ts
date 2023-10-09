@@ -7,14 +7,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   // se configura aca la tuberia de validaciones de forma global
-  app.useGlobalPipes(
-    new ValidationPipe({
-      transform: true,
-      transformOptions: {
-        enableImplicitConversion: true,
-      },
-    }),
-  );
+  app.useGlobalPipes(new ValidationPipe({ transform: true }));
   const config = new DocumentBuilder()
     .setTitle(process.env.npm_package_name)
     .setDescription(

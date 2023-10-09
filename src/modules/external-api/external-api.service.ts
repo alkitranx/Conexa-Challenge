@@ -15,25 +15,25 @@ export class ExternalApiService {
   constructor(
     private readonly http: HttpService,
     private readonly prismaService: PrismaService,
-    @InjectModel(Films.name) private FilmsModule: Model<FilmsDocument>,
-    @InjectModel(People.name) private PeopleModule: Model<PeopleDocument>,
-    @InjectModel(Species.name) private SpeciesModule: Model<SpeciesDocument>,
-    @InjectModel(Planets.name) private PlanetsModule: Model<PlanetsDocument>,
+    @InjectModel(Films.name) private filmsModule: Model<FilmsDocument>,
+    @InjectModel(People.name) private peopleModule: Model<PeopleDocument>,
+    @InjectModel(Species.name) private speciesModule: Model<SpeciesDocument>,
+    @InjectModel(Planets.name) private planetsModule: Model<PlanetsDocument>,
     @InjectModel(Starships.name)
-    private StarshipsModule: Model<StarshipsDocument>,
-    @InjectModel(Vehicles.name) private VehiclesModule: Model<VehiclesDocument>,
+    private starshipsModule: Model<StarshipsDocument>,
+    @InjectModel(Vehicles.name) private vehiclesModule: Model<VehiclesDocument>,
   ) {}
   //metodo que carga los datos del Api externa en nuestra base de datos de peliculas
 
   async getInfoApi(): Promise<any> {
-    const listSchemas = [
-      'Films',
-      'Species',
+    /* const listSchemas = [
+   /!*   'Films',
+      'Species',*!/
       'People',
-      'Vehicles',
+      /!*'Vehicles',
       'Starships',
-      'Planets',
-    ];
+      'Planets',*!/
+    ];*/
     const listApiEx = [
       'films',
       'species',
@@ -42,6 +42,8 @@ export class ExternalApiService {
       'starships',
       'planets',
     ];
+    let infoDetails;
+    const infoTotal = [];
     await Promise.all(
       listApiEx.map(async (api, index) => {
         const info = await this.http
@@ -49,9 +51,25 @@ export class ExternalApiService {
           .toPromise()
           .then((response) => response.data)
           .catch((e) => console.log('error axios', e));
-        return await this[`${listSchemas[index]}Module`].insertMany(
-          info.results,
-        );
+        for (let i = 0; i < 1000; i++) {
+          infoDetails = await this.http
+            .get(`https://swapi.dev/api/${api}/${i + 1}`)
+            .toPromise()
+            .then((response) => response.data)
+            .catch((e) => console.log('error axios', e.data));
+          console.log('daaa', infoDetails);
+          if (!!infoDetails) {
+            console.log('infoDetails', i + 1, api);
+            infoDetails.idReference = i + 1;
+            const objetData = infoTotal.push(infoDetails);
+            console.log('objetData', objetData);
+            if (objetData == 260) {
+              console.log('ocurre el break')
+              break;
+            }
+            await this[`${listApiEx[index]}Module`].create(infoDetails);
+          }
+        }
       }),
     );
   }

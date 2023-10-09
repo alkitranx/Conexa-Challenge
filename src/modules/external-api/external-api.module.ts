@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { HttpModule } from '@nestjs/axios';
 import { ExternalApiService } from './external-api.service';
-import { RegisterController } from './external-api.controller';
+import { ExternalApiController } from './external-api.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Films, FilmsSchema } from '../schema/films.schema';
 import { People, PeopleSchema } from '../schema/people.schema';
@@ -40,7 +40,7 @@ import { Planets, PlanetsSchema } from '../schema/planets.schema';
       },
     ]),
   ],
-  controllers: [RegisterController],
+  controllers: [ExternalApiController],
   providers: [ExternalApiService],
   exports: [],
 })

@@ -6,6 +6,8 @@ export type PeopleDocument = People & Document;
 @Schema()
 export class People {
   @Prop()
+  idReference: number;
+  @Prop()
   name: string;
   @Prop()
   height: string;
