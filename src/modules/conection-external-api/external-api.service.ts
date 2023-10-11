@@ -40,7 +40,7 @@ export class ExternalApiService {
     private starshipsModule: Model<StarshipsDocument>,
     @InjectModel(Vehicles.name) private vehiclesModule: Model<VehiclesDocument>,
   ) {}
-
+ //@TODO ### de uso interno solo para el cargado de los datos en la base de datos
   // Método para registrar las filas en la base de datos
   async registerRowsInDb(): Promise<any> {
     const listApiEx = [

@@ -5,7 +5,7 @@ export class AccessTokenService {
   constructor(private accessToken: JwtService) {}
 
   generateToken(userData: any): string {
-    console.log('userdata', userData)
+    console.log('userdata', userData);
     const payload = {
       id: userData.id,
       email: userData.email,

@@ -9,8 +9,8 @@ export interface BasicResponseTemplateParameters {
     content?: string;
     content_description?: string;
   };
-  data?: {};
-  error?: {};
+  data?: NonNullable<unknown>;
+  error?: NonNullable<unknown>;
 }
 
 export class BasicResponseTemplate {
@@ -24,8 +24,8 @@ export class BasicResponseTemplate {
     content?: string;
     content_description?: string;
   };
-  data?: {};
-  error?: {};
+  data?: NonNullable<unknown>;
+  error?: NonNullable<unknown>;
 
   constructor({
     success,
