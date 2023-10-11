@@ -17,6 +17,7 @@ import { UserJwtGuard } from '../../global-module/authorization/user-authorizati
 import { RoleDecorator } from '../../global-module/authorization/role-authorization/role.decorator';
 import { RoleGuard } from '../../global-module/authorization/role-authorization/role.guard';
 import { Roles } from '../../libs/enums';
+import { ApiBearerAuth, ApiBody, ApiParam } from '@nestjs/swagger';
 
 @Controller('api')
 export class FilmsController {
@@ -26,6 +27,7 @@ export class FilmsController {
   async findFilms() {
     return this.filmsService.findAllFilms();
   }
+  @ApiBearerAuth('User Token')
   @RoleDecorator(Roles.REGULAR)
   @UseGuards(UserJwtGuard, RoleGuard)
   @Get('filmDetailsById')
@@ -33,12 +35,17 @@ export class FilmsController {
     console.log('req', req.user);
     return this.filmsService.findDetailsFilmByEpisodeId(param);
   }
+  @ApiBearerAuth('Administrator Token')
+  @ApiBody({ type: CreateFilmDto })
   @RoleDecorator(Roles.ADMINISTRATOR)
   @UseGuards(UserJwtGuard, RoleGuard)
   @Post('newFilm')
   async registerUser(@Body() payload: CreateFilmDto) {
     return this.filmsService.createNewFilm(payload);
   }
+  @ApiBearerAuth('Administrator Token')
+  @ApiBody({ type: UpdateFilmDto })
+  @ApiParam(ParamsInputDto)
   @RoleDecorator(Roles.ADMINISTRATOR)
   @UseGuards(UserJwtGuard, RoleGuard)
   @Put('updateFilm')
@@ -48,6 +55,8 @@ export class FilmsController {
   ) {
     return this.filmsService.updateFilm(payload, param.id);
   }
+  @ApiBearerAuth('Administrator Token')
+  @ApiParam(ParamsInputDto)
   @RoleDecorator(Roles.ADMINISTRATOR)
   @UseGuards(UserJwtGuard, RoleGuard)
   @Delete('filmsDelete')
