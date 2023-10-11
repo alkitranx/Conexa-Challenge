@@ -15,6 +15,7 @@ async function bootstrap() {
     )
     .setVersion(process.env.npm_package_version)
     .addBearerAuth(undefined, 'User Token')
+    .addBearerAuth(undefined, 'Administrator Token')
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
